@@ -8,19 +8,24 @@ public class ServerTest {
     public static void main(String[] args) throws InterruptedException {
         Server.init();
         Server server = Server.getInstance();
-        server.push(new Message("1"));
-        server.push(new Message("2"));
-        server.push(new Message("3"));
-        server.push(new Message("4"));
-        Thread.sleep(5000);
-        server.push(new Message("5"));
-        Thread.sleep(3000);
-        server.push(new Message("6"));
-        Thread.sleep(5000);
-        server.push(new Message("7"));
-        Thread.sleep(5000);
-        server.push(new Message("8"));
-        Thread.sleep(5000);
-        server.push(new Message("9"));
+        while (true) {
+            server.push(new Message("1"));
+            Thread.sleep(1000);
+            server.push(new Message("2"));
+            Thread.sleep(1000);
+            server.push(new Message("3"));
+            Thread.sleep(1000);
+            server.push(new Message("4"));
+            Thread.sleep(5000);
+            server.push(new Message("5"));
+            Thread.sleep(3000);
+            server.push(new Message("6"));
+            Thread.sleep(5000);
+            server.push(new Message("7"));
+            Thread.sleep(5000);
+            server.push(new Message("8"));
+            Thread.sleep(1000);
+            server.push(new Message("9"));
+        }
     }
 }

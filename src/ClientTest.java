@@ -8,13 +8,12 @@ import java.io.IOException;
  */
 public class ClientTest {
     public static void main(String[] args) throws IOException {
-        Client client = new Client(new Client.OnNewMessageListener() {
+        Client client = new Client("192.168.0.106", 73, new Client.OnNewMessageListener() {
             @Override
             public void onNewMessage(Message message) {
                 System.out.println(message);
             }
         });
-        client.connect("127.0.0.1", 73);
         client.start();
     }
 }

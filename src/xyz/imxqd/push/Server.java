@@ -34,6 +34,7 @@ public final class Server {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
+                System.exit(-1);
             }
         }
     }, "ClientListenThread");
@@ -109,7 +110,7 @@ public final class Server {
         if (mClient != null && mClient.isConnected() && !mClient.isClosed() &&
                 mPushWriter != null ) {
             try {
-                mClient.sendUrgentData(0xFF);
+                mClient.sendUrgentData('\n');
                 return true;
             } catch (IOException e) {
                 return false;

@@ -1,5 +1,7 @@
 package xyz.imxqd.push;
 
+import com.google.gson.Gson;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -35,10 +37,8 @@ public class Message {
     }
 
     protected String toURLString() {
-        String str = "{" +
-                "time:" + time +
-                ", content:\'" + content + '\'' +
-                '}';
+        Gson gson = new Gson();
+        String str = gson.toJsonTree(this).toString();
         try {
             return URLEncoder.encode(str, "UTF-8");
         } catch (UnsupportedEncodingException e) {
