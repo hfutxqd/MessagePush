@@ -34,7 +34,6 @@ public final class Server {
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                System.exit(-1);
             }
         }
     }, "ClientListenThread");
