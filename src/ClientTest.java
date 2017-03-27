@@ -13,6 +13,16 @@ public class ClientTest {
             public void onNewMessage(Message message) {
                 System.out.println(message);
             }
+
+            @Override
+            public void onConnected() {
+
+            }
+
+            @Override
+            public void onDisconnected() {
+
+            }
         });
         client.start();
     }

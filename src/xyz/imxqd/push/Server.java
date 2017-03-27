@@ -12,6 +12,8 @@ import java.util.Queue;
  */
 public final class Server {
 
+    public static final int MAX_SIZE_OF_QUEUE = 10000;
+
     private static Server mInstance;
 
     private final Queue<Message> mMessageQueue;
@@ -45,8 +47,10 @@ public final class Server {
             while (true) {
                 synchronized (mMessageQueue) {
                     if (isConnected() && mMessageQueue.size() > 0) {
-                        Message msg = mMessageQueue.poll();
-                        pushToClient(msg);
+                        Message msg = mMessageQueue.peek();
+                        if (pushToClient(msg)) {
+                            mMessageQueue.remove();
+                        }
                     }
                     if (mMessageQueue.size() == 0) {
                         try {
@@ -84,12 +88,17 @@ public final class Server {
         return mInstance;
     }
 
-    public void push(Message message) {
+    public boolean push(Message message) {
         System.out.println("pushToQueue : " + message);
+        boolean pushed = false;
         synchronized (mMessageQueue) {
-            mMessageQueue.add(message);
+            if (mMessageQueue.size() < MAX_SIZE_OF_QUEUE) {
+                mMessageQueue.add(message);
+                pushed = true;
+            }
             mMessageQueue.notifyAll();
         }
+        return pushed;
     }
 
     private boolean pushToClient(Message message) {
