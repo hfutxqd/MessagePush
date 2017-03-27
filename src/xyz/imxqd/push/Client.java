@@ -9,12 +9,11 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 import java.net.URLDecoder;
 
-import xyz.imxqd.push.Message;
-
 /**
  * Created by imxqd on 2017/3/26.
  */
 public final class Client {
+    public static final String WELCOME_STR = "MessagePushServer";
 
     private static final String TAG = "Client";
 
@@ -37,6 +36,10 @@ public final class Client {
                 BufferedReader in = null;
                 try {
                     in = new BufferedReader(new InputStreamReader(mServer.getInputStream()));
+                    if (!WELCOME_STR.equals(in.readLine())) {
+                        System.out.println("error");
+                        return;
+                    }
                     while (mServer.isConnected() && !mServer.isClosed() && isRunning) {
                         String str = in.readLine();
                         if (str == null || str.length() == 0) {

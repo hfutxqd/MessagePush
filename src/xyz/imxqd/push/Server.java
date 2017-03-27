@@ -14,6 +14,8 @@ public final class Server {
 
     public static final int MAX_SIZE_OF_QUEUE = 10000;
 
+    public static final String WELCOME_STR = "MessagePushServer";
+
     private static Server mInstance;
 
     private final Queue<Message> mMessageQueue;
@@ -33,6 +35,10 @@ public final class Server {
                     mClient = mSSocket.accept();
                     mPushWriter = new PrintWriter(mClient.getOutputStream(),true);
                     System.out.println("New client connected.");
+                    if (mClient.isConnected() && !mClient.isClosed()) {
+                        mPushWriter.println(WELCOME_STR);
+                        mPushWriter.flush();
+                    }
                 }
             } catch (IOException e) {
                 e.printStackTrace();
